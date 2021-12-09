@@ -1,11 +1,11 @@
 function Aluno(nome, faltas, notas) {
   this.nome = nome,
-    this.nFaltas = faltas,
-    this.notas = notas,
+  this.nFaltas = faltas,
+  this.notas = notas,
 
-    this.media = () => {
-      let totalNotas = 0
-      this.notas.forEach((nota) => {
+  this.media = () => {
+    let totalNotas = 0
+    this.notas.forEach((nota) => {
         totalNotas += nota
       })
       let mediaFinal = totalNotas / this.notas.length;
