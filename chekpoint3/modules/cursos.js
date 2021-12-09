@@ -6,24 +6,24 @@ let curso = {
   notaAprovacao: 7,
   faltasMaximas: 15,
   estudantes: listaAlunos.listaEstudantes,
-  addAluno: function(nome, faltas, [nota1 = 0,nota2 = 0,nota3 = 0]) {
-    let novoAluno = new criarAluno.Aluno( nome, faltas, [nota1, nota2, nota3])
+  addAluno: function (nome, faltas, [nota1 = 0, nota2 = 0, nota3 = 0]) {
+    let novoAluno = new criarAluno.Aluno(nome, faltas, [nota1, nota2, nota3])
     listaAlunos.listaEstudantes.push(novoAluno)
   },
-  checarAprovacao:function(index) {
-    let media = this.estudantes[index].media() 
-    let faltas = this.estudantes[index].faltas()
-    let porcentagem = this.notaAprovacao + this.notaAprovacao  * 0.10
+  checarAprovacao: function (index) {
+    let media = this.estudantes[index].media();
+    let faltas = this.estudantes[index].faltas();
+    let porcentagem = this.notaAprovacao + this.notaAprovacao * 0.10
 
-    if ( (media >= this.notaAprovacao && faltas <= this.faltasMaximas) || (faltas == this.faltasMaximas && media >= porcentagem)) {
-      return console.log(`Aprovado: ${true} \n`)
+    if ((media >= this.notaAprovacao && faltas <= this.faltasMaximas) || (faltas == this.faltasMaximas && media >= porcentagem)) {
+      return console.log(`Aprovado: ${true} \n`);
     };
-      return console.log(`Aprovado: ${false} \n`);
+    return console.log(`Aprovado: ${false} \n`);
   },
 
-  listaAprovacao: function() {
+  listaAprovacao: function () {
     this.estudantes.forEach((estudante, index) => {
-      this.checarAprovacao(index)
+      this.checarAprovacao(index);
     })
   }
 }
