@@ -1,3 +1,4 @@
+import { login } from './utils/api.js'
 import { validations } from './utils/validations.js'
 
 const signinButton = document.querySelector('#signupButton')
@@ -11,8 +12,13 @@ inputs.forEach(input => (
   validations.handleEmptyInput(input)
 ))
 
-signinButton.addEventListener('click', (e) => {
+signinButton.addEventListener('click', async (e) => {
+  let emailInput = document.querySelector('#inputEmail');
+  let passwordInput = document.querySelector('#inputPassword');
+
   e.preventDefault();
-  validations.checkIfHasEmptyInput(inputs, signinButton, 'Criar Conta')
-  console.log({ nameInputValue, surnameInputValue, emailInputValue })
+  validations.checkIfHasEmptyInput(inputs, signinButton, 'Login')
+ await  login(emailInput.value,passwordInput.value)
+
+
 });
