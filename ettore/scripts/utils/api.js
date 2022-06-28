@@ -31,3 +31,4 @@ export async function cadastro(firtsName, lastName,email, password, ) {
 
   console.log(createUserApi.json())
 }
+

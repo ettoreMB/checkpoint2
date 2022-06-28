@@ -18,7 +18,7 @@ signinButton.addEventListener('click', async (e) => {
 
   e.preventDefault();
   validations.checkIfHasEmptyInput(inputs, signinButton, 'Login')
- await  login(emailInput.value,passwordInput.value)
+  await login(emailInput.value,passwordInput.value)
 
 
 });
