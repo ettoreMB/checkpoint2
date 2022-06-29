@@ -1,0 +1,2 @@
+estou com um problema que o botão está sendo liberado mesmo que o usuario não peencha a quantidade necessaria de caracteres.
+
