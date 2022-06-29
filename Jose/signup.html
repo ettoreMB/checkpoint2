@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do App</title>
+
+  <!-- ---------------- estilos compartilhados entre login e signup ---------------- -->
+  <link rel="stylesheet" href="styles/acesso.css">
+
+  <!-- ---------------------- lógica aplicada no registro -------------------- -->
+
+</head>
+
+<body>
+
+  <div class="left">
+    <img src="./assets/pessoa-signup.png" alt="">
+  </div>
+  <div class="right">
+    <form>
+      <div class="form-header">
+        <p>To-Do App</p>
+      </div>
+
+      <label for="nomeInput">
+        Nome:
+        <input id="name-input" type="text">
+        <small id="emailValidate" class="validateField"></small>
+      </label>
+      <label for="sobrenomeInput">
+        Sobrenome:
+        <input id="surname-input" type="text">
+        <small id="emailValidate" class="validateField"></small>
+      </label>
+      <label for="emailInput">
+        Email:
+        <input id="email-input" type="email">
+        <small id="emailValidate" class="validateField"></small>
+      </label>
+      <label for="passwordInput">
+        Senha:
+        <input id="password-input" type="password">
+        <small id="emailValidate" class="validateField"></small>
+      </label>
+      <label for="repeatPasswordInput">
+        Repetir senha:
+        <input id="password-confirm-input" type="password">
+        <small class="validateField"></small>
+      </label>
+
+      <button id="signingButton">Criar conta</button>
+
+    </form>
+    <div class="ingressar">
+      <a href="index.html">Já possui conta? Acesse aqui</a>
+    </div>
+  </div>
+
+</body>
+<script src="./scripts/signup.js" type="module"></script>
+
+</html>
