@@ -2,6 +2,10 @@
 const campoEmail = document.getElementById('email-input');
 const campoSenha = document.getElementById('password-input');
 
+// Captura de campos - Página de login
+
+const botaoLogin = document.getElementById('submit-button');
+
 
 // Captura de campos - Página de cadastro
 const campoNome = document.getElementById('name-input');

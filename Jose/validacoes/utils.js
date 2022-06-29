@@ -1,7 +1,3 @@
-function limpaMensagem(campoDeExibicao) {
-    campoDeExibicao.innerText = "";
-}
-
 function validarCampo(campo) {
 	if (campo == campoNome) {
 		const nameHasOnlyString = !/\d/g.test(campoNome.value);
