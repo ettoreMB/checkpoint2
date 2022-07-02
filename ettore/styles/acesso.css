@@ -94,3 +94,13 @@ button {
   align-items: center;
   justify-content: center;
 }
+
+small {
+  color: #dc3545;
+}
+
+.inputError {
+  border: 1px solid #dc3545;
+}
+
+

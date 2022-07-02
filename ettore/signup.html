@@ -9,9 +9,9 @@
 
   <!-- ---------------- estilos compartilhados entre login e signup ---------------- -->
   <link rel="stylesheet" href="styles/acesso.css">
-
+  <link rel="stylesheet" href="styles/common.css">
   <!-- ---------------------- lógica aplicada no registro -------------------- -->
-
+ 
 </head>
 
 <body>
@@ -28,38 +28,43 @@
       <label for="nomeInput">
         Nome:
         <input id="name-input" type="text">
-        <small id="emailValidate" class="validateField"></small>
+        <small class="validateField"></small>
       </label>
       <label for="sobrenomeInput">
         Sobrenome:
         <input id="surname-input" type="text">
-        <small id="emailValidate" class="validateField"></small>
+        <small class="validateField"></small>
       </label>
       <label for="emailInput">
         Email:
-        <input id="email-input" type="email">
-        <small id="emailValidate" class="validateField"></small>
+        <input id="email-input" type="email" onblur="Validate.apply(this, 'isEmail')">
+        <small class="error"></small>
       </label>
-      <label for="passwordInput">
+      <label for="password_input">
         Senha:
-        <input id="password-input" type="password">
-        <small id="emailValidate" class="validateField"></small>
+        <input id="password_input" type="password">
+        <small class="error"></small>
       </label>
-      <label for="repeatPasswordInput">
+      <label for="repeat_password_input">
         Repetir senha:
-        <input id="password-confirm-input" type="password">
+        <input 
+        id="repeat_password_input" 
+        type="password" 
+        >
         <small class="validateField"></small>
       </label>
 
-      <button id="signingButton">Criar conta</button>
+      <button id="signingButton" disabled>Criar conta</button>
 
     </form>
     <div class="ingressar">
       <a href="index.html">Já possui conta? Acesse aqui</a>
     </div>
   </div>
-
 </body>
+
+
 <script src="./scripts/signup.js" type="module"></script>
+<script src="./scripts/utils/script.js"></script>
 
 </html>
