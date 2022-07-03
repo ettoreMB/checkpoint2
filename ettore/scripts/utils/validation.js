@@ -9,7 +9,6 @@ const Validate = {
     }
   },
   displayError(input, error){
-    
     const div = document.createElement('small')
     div.classList.add('error')
     div.innerHTML = error

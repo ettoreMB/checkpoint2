@@ -9,7 +9,7 @@
 
   <!-- ---------------- estilos compartilhados entre login e signup ---------------- -->
   <link rel="stylesheet" href="styles/acesso.css">
-
+  <link rel="stylesheet" href="./styles/messages.css">
 
 </head>
 
@@ -26,13 +26,13 @@
       <h1>Acessar</h1>
       <label>
         Email:
-        <input id="email-input" type="email" required>
-        <small id="emailValidate" class="validateField"></small>
+        <input id="email_input" type="email" onblur="Validate.apply(this, 'isEmail')" required>
+        <small class="error"></small>
       </label>
       <label>
         Senha:
-        <input id="password-input" type="password" required>
-        <small id="passwordValidate" class="validateField"></small>
+        <input id="password_input" type="password" required>
+        <small class="error"></small>
       </label>
 
       <button id="signupButton">Acessar</button>
@@ -42,7 +42,11 @@
       <a href="signup.html">Não possui conta? Crie agora mesmo</a>
     </div>
   </div>
+
+
+
   <script src="./scripts/index.js" type="module"></script>
+  <script src="./scripts/utils/validation.js"></script>
 </body>
 
 </html>

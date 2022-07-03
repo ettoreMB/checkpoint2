@@ -1,5 +1,13 @@
 const baseURL = 'https://ctd-todo-api.herokuapp.com/v1'
 
+function errorMsg(message) {
+  const errorMsg = document.createElement('div')
+      const body = document.querySelector('body')
+      body.appendChild(errorMsg)
+      errorMsg.innerText = message
+      errorMsg.classList.add('messages')
+}
+
 export async  function login(email, password) {
   const user = {
     email: email,
@@ -7,27 +15,27 @@ export async  function login(email, password) {
   }
 
   try {
-    let login =  await fetch('https://ctd-todo-api.herokuapp.com/v1/users/login', {
+    let login =  await fetch(`${baseURL}/users/login`, {
       method: 'POST',
       headers: {'content-type': "application/json"},
       body: JSON.stringify(user)
      })
-    let response = await login;
-
+     const response = login
+     console.log(response)
     if( response.status === 200 || response.status === 201) {
-      const jwt = response.jwt
-      sessionStorage.setItem('token', jwt);
-
+      const jwtToken = await  response.json()
+      sessionStorage.setItem('token', jwtToken.jwt);
       location.href = 'tarefas.html'
     }
     
-    if(response.status === 400) {
-      location.href = 'index.html'
-      alert('Email ou senha Invalidos');
+    if(login.status === 400) {
+      errorMsg('Email ou Senha Invalidos')
+      // location.href = 'index.html'
+     
     }
 
   } catch (error) {
-    location.href = 'index.html'
+    
     alert(error)
   }
 
@@ -58,4 +66,17 @@ export function verificacaoLogin() {
       console.log('Token')
     }
   }
+}
+
+export async function getUserInfo() {
+  let user=  await fetch(`${baseURL}/users/getMe`, {
+    headers: {
+      'content-type': "application/json",
+      'authorization': sessionStorage.getItem('token')
+    },
+    
+   })
+  const response = await user.json()
+  
+   return response
 }

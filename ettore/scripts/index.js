@@ -9,16 +9,20 @@ window.addEventListener('keypress', () => {
 })
 
 inputs.forEach(input => (
+  
   validations.handleEmptyInput(input)
 ))
 
 signinButton.addEventListener('click', async (e) => {
-  let emailInput = document.querySelector('#inputEmail');
-  let passwordInput = document.querySelector('#inputPassword');
+  let emailInput = document.querySelector('#email_input');
+  let passwordInput = document.querySelector('#password_input');
 
   e.preventDefault();
-  validations.checkIfHasEmptyInput(inputs, signinButton, 'Login')
-  await login(emailInput.value,passwordInput.value)
+  inputs.forEach(input => (
+    validations.removeSpacesFromtext(input.value)
+  ))
+  validations.checkIfHasEmptyInput(inputs, signinButton)
 
+  await login(emailInput.value,passwordInput.value)
 
 });
