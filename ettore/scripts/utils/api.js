@@ -1,4 +1,21 @@
-const baseURL = 'https://ctd-todo-api.herokuapp.com/v1'
+const baseURL = 'https://ctd-todo-api.herokuapp.com/v1';
+const authToken = sessionStorage.getItem('token');
+
+const _GET_HEADERS_CONFIG = {
+  headers: {
+    'content-type': "application/json",
+    'authorization': authToken
+  }
+}
+
+let _POST_HEADERS_CONFIG =  {
+  headers: {
+    method: 'POST',
+    'content-type': "application/json",
+    'authorization': authToken,
+    body: ''
+  }
+}
 
 function errorMsg(message) {
   const errorMsg = document.createElement('div')
@@ -41,7 +58,7 @@ export async  function login(email, password) {
 
 } 
 
-export async function cadastro(firtsName, lastName,email, password, ) {
+export async function createUser(firtsName, lastName,email, password, ) {
   const newUser = {
     firtsName: firtsName,
     lastName: lastName,
@@ -56,27 +73,44 @@ export async function cadastro(firtsName, lastName,email, password, ) {
   createUserApi.json()
 }
 
-export function verificacaoLogin() {
-  onload= () => {
-     alert('Rodou')
-   const token =  sessionStorage.getItem('token')
-    if(!token) {
-    console.log('Não tem token')
-    } else {
-      console.log('Token')
-    }
-  }
-}
 
 export async function getUserInfo() {
-  let user=  await fetch(`${baseURL}/users/getMe`, {
-    headers: {
-      'content-type': "application/json",
-      'authorization': sessionStorage.getItem('token')
-    },
-    
-   })
+  let user=  await fetch(`${baseURL}/users/getMe`, _GET_HEADERS_CONFIG)
   const response = await user.json()
   
    return response
+}
+
+export async function getTasks() {
+  let tasks=  await fetch(`${baseURL}/tasks`, _GET_HEADERS_CONFIG)
+  const response = await tasks.json()
+  
+   return response
+}
+
+export  async function createTask(description) {
+  // const post_opt = Object.assign(_POST_HEADERS_CONFIG);
+  // const json_body = {
+  //   description: description,
+  //   completed: false
+  // }
+  // post_opt.headers.body = JSON.stringify(json_body)
+
+  const body = {
+    description: description,
+    completed: false
+  }
+  
+
+   const new_task =  await fetch(`${baseURL}/tasks`, {
+      method: 'POST',
+      headers: {
+        'content-type': "application/json",
+        authorization: authToken,
+      },
+      body: JSON.stringify(body)
+    })
+    const response = await new_task.json()
+   return response
+  
 }

@@ -1,4 +1,4 @@
-import { cadastro, login } from './utils/api.js'
+import { createUser, login } from './utils/api.js'
 import { validations } from './utils/validations.js'
 
 
@@ -26,6 +26,6 @@ loginButton.addEventListener('click', (e) => {
   validations.removeSpacesFromtext()
   validations.checkIfHasEmptyInput(inputs, loginButton)
   validations.checkPassword(passwordInput, passwordRepeatInput)
-  // await cadastro(nameValue, lastNameValue, emailValue, passwordValue );
+  // await createUser(nameValue, lastNameValue, emailValue, passwordValue );
 });
 
