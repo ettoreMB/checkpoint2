@@ -3,9 +3,9 @@ const task_button =  document.querySelector('#task-button');
 const task_input = document.querySelector('#nova-tarefa');
 const tarefas_pendentes = document.querySelector('.tarefas-pendentes');
 const tarefas_terminadas = document.querySelector('.tarefas-terminadas');
-const task_not_done = document.querySelector('.not-done')
+const logout_button = document.querySelector('#closeApp')
 
-import {  createTask, getTasks, getUserInfo } from './utils/api.js'
+import {  createTask, getTasks, getUserInfo, logout } from './utils/api.js'
 import { createTaskDiv, errorMsg } from './utils/utils.js'
 
 onload = async () => {
@@ -18,7 +18,6 @@ onload = async () => {
       loadTasks();
     }
 }
-
 
 async function loadTasks() {
   const tasks = await getTasks();
@@ -48,4 +47,8 @@ task_button.addEventListener('click',async (e) => {
 
     createTaskDiv(new_task)
      
+})
+
+logout_button.addEventListener('click', ()=> {
+  logout()
 })

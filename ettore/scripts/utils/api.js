@@ -116,3 +116,8 @@ export async function updateTask(task) {
 export async function deleteTask(id){
  await api.delete(`/task/${id}`)
 }
+
+export function logout(){
+  sessionStorage.removeItem('token')
+  location.href = 'index.html'
+}
