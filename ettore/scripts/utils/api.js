@@ -1,3 +1,5 @@
+import { errorMsg } from "./utils.js";
+
 const baseURL = 'https://ctd-todo-api.herokuapp.com/v1';
 const authToken = sessionStorage.getItem('token');
 
@@ -38,14 +40,6 @@ const _HEADERS_CONFIG = {
   
 }
 
-function errorMsg(message) {
-  const errorMsg = document.createElement('div')
-  const body = document.querySelector('body')
-  body.appendChild(errorMsg)
-  errorMsg.innerText = message
-  errorMsg.classList.add('messages')
-}
-
 export async  function login(email, password) {
   const user = {
     email: email,
@@ -83,7 +77,6 @@ export async function createUser(firtsName, lastName,email, password ) {
   
 }
 
-
 export async function getUserInfo() {
   let user=  await api.get('/users/getMe', 'get')
   const response = await user.json()
@@ -108,6 +101,16 @@ export  async function createTask(description) {
    const response = await new_task.json()
    return response
   
+}
+
+export async function updateTask(task) {
+  const updatedTask = {
+    description: task.description,
+    completed: task.completed === false ? true : false
+  }
+   await api.put(`/tasks/${task.id}`, updatedTask)
+   location.reload()
+
 }
 
 export async function deleteTask(id){

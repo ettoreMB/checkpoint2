@@ -1,8 +1,12 @@
 const header = document.querySelector('#user-name')
 const task_button =  document.querySelector('#task-button');
-const task_input = document.querySelector('#nova-tarefa')
+const task_input = document.querySelector('#nova-tarefa');
+const tarefas_pendentes = document.querySelector('.tarefas-pendentes');
+const tarefas_terminadas = document.querySelector('.tarefas-terminadas');
+const task_not_done = document.querySelector('.not-done')
+
 import {  createTask, getTasks, getUserInfo } from './utils/api.js'
-import { createTaskDiv } from './utils/utils.js'
+import { createTaskDiv, errorMsg } from './utils/utils.js'
 
 onload = async () => {
   const token =  sessionStorage.getItem('token')
@@ -16,22 +20,32 @@ onload = async () => {
 }
 
 
-
-
 async function loadTasks() {
   const tasks = await getTasks();
-  tasks.forEach(task => createTaskDiv(task))
+  tasks.map(task => {
+    
+    if(task.completed === true) {
+      createTaskDiv(tarefas_terminadas,task)
+      
+    } else {
+      createTaskDiv(tarefas_pendentes,task)
+    }
+  })
+  
 } 
 
-getTasks()
-  task_button.addEventListener('click',async (e) => {
+task_button.addEventListener('click',async (e) => {
     
     e.preventDefault()
 
     let task_value = task_input.value
 
+    if(task_value === "") {
+     return  errorMsg('O campo tarefa não pode ser vazio')
+    }
+
     const new_task = await createTask(task_value)
 
     createTaskDiv(new_task)
      
-  })
+})

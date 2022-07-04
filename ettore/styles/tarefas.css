@@ -126,6 +126,9 @@ a {
   margin-bottom: 1.5em;
 }
 
+.tarefa .id-number {
+  display: none;
+}
 .tarefa .not-done {
   position: relative;
   height: 1.5em;

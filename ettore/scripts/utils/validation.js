@@ -17,19 +17,18 @@ const Validate = {
   },
   clearErrors(input) {
     const errorDiv = input.parentNode.querySelector(".error")
-    if(errorDiv)
-      errorDiv.remove()
+    if(errorDiv){ errorDiv.remove() }
   },
   isEmail(value) {
     let error = null
     const mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-    if(!value.match(mailFormat)) {
-      error = 'Email Invalido'
-    }
+    if(!value.match(mailFormat)) {  error = 'Email Invalido' }
 
-    return  {
-      error,
-      value
-    }
+    return  {  error, value }
   },
+  isEmpty(value) {
+    let error = null
+    if(value = "") { error }
+    return { value, error}
+    }
 }
