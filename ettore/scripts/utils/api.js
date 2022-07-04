@@ -1,28 +1,49 @@
 const baseURL = 'https://ctd-todo-api.herokuapp.com/v1';
 const authToken = sessionStorage.getItem('token');
 
-const _GET_HEADERS_CONFIG = {
-  headers: {
+const _HEADERS_CONFIG = {
+
     'content-type': "application/json",
-    'authorization': authToken
-  }
+    authorization: authToken
+  
 }
 
-let _POST_HEADERS_CONFIG =  {
-  headers: {
-    method: 'POST',
-    'content-type': "application/json",
-    'authorization': authToken,
-    body: ''
-  }
+
+ const api =  {
+  post(endpoint, body) {
+    return fetch(`${baseURL}${endpoint}`, {
+      method: 'POST',
+      headers: _HEADERS_CONFIG,
+      body: JSON.stringify(body)
+    })
+  },
+  get(endpoint) {
+    return fetch(`${baseURL}${endpoint}`, {
+      headers:_HEADERS_CONFIG
+    })
+  },
+  put(endpoint,body) {
+    return fetch(`${baseURL}${endpoint}`, {
+      method: 'PUT',
+      headers: _HEADERS_CONFIG,
+      body: JSON.stringify(body)
+    })
+  },
+  delete(endpoint, id) {
+    return fetch(`${baseURL}${endpoint}/${id}`,{
+      method: 'delete',
+      headers: _HEADERS_CONFIG
+    })
+  },
+  
 }
 
 function errorMsg(message) {
   const errorMsg = document.createElement('div')
-      const body = document.querySelector('body')
-      body.appendChild(errorMsg)
-      errorMsg.innerText = message
-      errorMsg.classList.add('messages')
+  const body = document.querySelector('body')
+  body.appendChild(errorMsg)
+  errorMsg.innerText = message
+  errorMsg.classList.add('messages')
 }
 
 export async  function login(email, password) {
@@ -32,13 +53,8 @@ export async  function login(email, password) {
   }
 
   try {
-    let login =  await fetch(`${baseURL}/users/login`, {
-      method: 'POST',
-      headers: {'content-type': "application/json"},
-      body: JSON.stringify(user)
-     })
+    let login =  await api.post(`/users/login`, user)
      const response = login
-     console.log(response)
     if( response.status === 200 || response.status === 201) {
       const jwtToken = await  response.json()
       sessionStorage.setItem('token', jwtToken.jwt);
@@ -47,18 +63,15 @@ export async  function login(email, password) {
     
     if(login.status === 400) {
       errorMsg('Email ou Senha Invalidos')
-      // location.href = 'index.html'
-     
     }
 
   } catch (error) {
-    
-    alert(error)
+    errorMsg(error)
   }
 
 } 
 
-export async function createUser(firtsName, lastName,email, password, ) {
+export async function createUser(firtsName, lastName,email, password ) {
   const newUser = {
     firtsName: firtsName,
     lastName: lastName,
@@ -66,51 +79,37 @@ export async function createUser(firtsName, lastName,email, password, ) {
     password: password
   }
 
-  const createUserApi = await fetch(`${baseURL}/users`, {
-    body: JSON.stringify(newUser)
-  })
+ await api.post(`/users`, newUser)
   
-  createUserApi.json()
 }
 
 
 export async function getUserInfo() {
-  let user=  await fetch(`${baseURL}/users/getMe`, _GET_HEADERS_CONFIG)
+  let user=  await api.get('/users/getMe', 'get')
   const response = await user.json()
   
    return response
 }
 
 export async function getTasks() {
-  let tasks=  await fetch(`${baseURL}/tasks`, _GET_HEADERS_CONFIG)
+  let tasks=  await api.get('/tasks', 'get')
   const response = await tasks.json()
   
    return response
 }
 
 export  async function createTask(description) {
-  // const post_opt = Object.assign(_POST_HEADERS_CONFIG);
-  // const json_body = {
-  //   description: description,
-  //   completed: false
-  // }
-  // post_opt.headers.body = JSON.stringify(json_body)
-
-  const body = {
+  const task = {
     description: description,
     completed: false
   }
   
-
-   const new_task =  await fetch(`${baseURL}/tasks`, {
-      method: 'POST',
-      headers: {
-        'content-type': "application/json",
-        authorization: authToken,
-      },
-      body: JSON.stringify(body)
-    })
-    const response = await new_task.json()
+   const new_task =  await api.post(`/tasks`, task)
+   const response = await new_task.json()
    return response
   
+}
+
+export async function deleteTask(id){
+ await api.delete(`/task/${id}`)
 }

@@ -9,13 +9,13 @@ onload = async () => {
     if(!token) {
       location.href = 'index.html'
     } else {
-      loadTasks()
+      const user = await getUserInfo();
+      header.innerText = user.firstName
+      loadTasks();
     }
 }
 
-const user = await getUserInfo();
-console.log(user)
-  header.innerText = user.firstName
+
 
 
 async function loadTasks() {
@@ -23,6 +23,7 @@ async function loadTasks() {
   tasks.forEach(task => createTaskDiv(task))
 } 
 
+getTasks()
   task_button.addEventListener('click',async (e) => {
     
     e.preventDefault()
