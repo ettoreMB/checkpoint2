@@ -11,8 +11,27 @@ function transformDate(date) {
  return transformedDate
 }
 
-export function createTaskDiv(input, task ) {
-  
+
+
+export function createIncompleteTaskDiv(input, task) {
+  const template = `
+    <li class="tarefa">
+    <div class="done"></div>
+    <div class="descricao">
+      <p class="nome">${task.description}</p>
+    <div>
+    <button><i id="${task.id}" class="fas fa-undo-alt change"></i></button>
+    <button><i id="${task.id}" class="far fa-trash-alt"></i></button>
+    </div>
+    </div>
+    </li>
+  `
+  input.innerHTML += template
+    // description_div.appendChild(template)
+    // description_div.innerHTML += template
+}
+
+export function createCompleteTaskDiv(input, task ) {
     const task_li = document.createElement('li');
     const not_done_div = document.createElement('div');
     const description_div =  document.createElement('p');
@@ -31,19 +50,19 @@ export function createTaskDiv(input, task ) {
     task_li.appendChild(description_div);
     description_div.appendChild(name_p)
     description_div.appendChild(timestamp_p);
+
     task_li.appendChild(input_id);
     
     not_done_div.addEventListener('click', async (e) => {
       e.preventDefault()
       await updateTask(task)
     })
-    
+
     input_id.value = task.id
     name_p.innerText = task.description
 
     timestamp_p.innerText = `Criada em : ${transformDate(task.createdAt)}`
     input.appendChild(task_li)
- 
 }
 
 export function errorMsg(message) {

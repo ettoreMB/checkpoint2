@@ -1,4 +1,5 @@
 import { login } from './utils/api.js'
+import { mostrarSpinner } from './utils/loader.js'
 import { validations } from './utils/validations.js'
 
 const signinButton = document.querySelector('#signupButton')
@@ -12,7 +13,7 @@ inputs.forEach(input => (
   
   validations.handleEmptyInput(input)
 ))
-
+// mostrarSpinner()
 signinButton.addEventListener('click', async (e) => {
   let emailInput = document.querySelector('#email_input');
   let passwordInput = document.querySelector('#password_input');

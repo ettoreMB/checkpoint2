@@ -6,7 +6,7 @@ const tarefas_terminadas = document.querySelector('.tarefas-terminadas');
 const logout_button = document.querySelector('#closeApp')
 
 import {  createTask, getTasks, getUserInfo, logout } from './utils/api.js'
-import { createTaskDiv, errorMsg } from './utils/utils.js'
+import { createCompleteTaskDiv,createIncompleteTaskDiv, errorMsg } from './utils/utils.js'
 
 onload = async () => {
   const token =  sessionStorage.getItem('token')
@@ -24,10 +24,10 @@ async function loadTasks() {
   tasks.map(task => {
     
     if(task.completed === true) {
-      createTaskDiv(tarefas_terminadas,task)
+      createCompleteTaskDiv(tarefas_pendentes,task)
       
     } else {
-      createTaskDiv(tarefas_pendentes,task)
+      createIncompleteTaskDiv(tarefas_terminadas,task)
     }
   })
   
