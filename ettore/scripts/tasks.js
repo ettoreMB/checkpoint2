@@ -12,6 +12,7 @@ const logout_button = document.querySelector('#closeApp');
 
 
 
+
 onload = async () => {
   const token =  sessionStorage.getItem('token')
     if(!token) {
@@ -47,7 +48,23 @@ task_button.addEventListener('click',async (e) => {
 });
 
 
-logout_button.addEventListener('click', ()=> {
-  logout();
+logout_button.addEventListener('click', function () {
+
+  Swal.fire({
+    text: "Realmente deseja sair ?",
+    icon: 'question',
+    background: 'black',
+    color: 'white',
+    showCancelButton: true,
+    confirmButtonColor: 'green',
+    cancelButtonColor: 'red',
+    confirmButtonText: 'Sair',
+    cancelButtonText: 'Cancelar'
+}).then((result) => {
+    if (result.isConfirmed) {
+      logout();
+    }
+})
+  
 });
 
