@@ -1,14 +1,21 @@
 @import url('./common.css');
 
+html {
+  scroll-behavior: smooth;
+}
+
+
 body{
   display: flex;
 }
+
 
 h1 {
   color: rgb(116, 116, 116);
   font-weight: 300;
   margin: .5em 0;
 }
+
 
 form {
   position: relative;
