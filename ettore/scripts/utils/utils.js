@@ -55,7 +55,7 @@ export function createCompleteTaskDiv(input, task) {
     Swal.fire({
       title: "Excluir tarefa?",
       icon: "question",
-      background: "black",
+      background: "#8E64C5",
       color: "white",
       showCancelButton: true,
       confirmButtonColor: "green",

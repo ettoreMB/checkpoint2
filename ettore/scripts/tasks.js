@@ -53,7 +53,7 @@ logout_button.addEventListener('click', function () {
   Swal.fire({
     text: "Realmente deseja sair ?",
     icon: 'question',
-    background: 'black',
+    background: '#8E64C5',
     color: 'white',
     showCancelButton: true,
     confirmButtonColor: 'green',
