@@ -1,6 +1,7 @@
 import {  createTask, getTasks, getUserInfo, logout } from './utils/api.js';
 import { removeSkeletons, renderSkeletons } from './utils/loader.js';
 import { createCompleteTaskDiv,createIncompleteTaskDiv, errorMsg } from './utils/utils.js';
+import { validations } from './utils/validations.js';
 
 const header = document.querySelector('#user-name')
 const task_button =  document.querySelector('#task-button');
@@ -28,17 +29,16 @@ async function loadTasks() {
   const tasks = await getTasks();
   tasks.map(task => {
     if(task.completed === true) {
-      createCompleteTaskDiv(tarefas_terminadas,task)
+      createCompleteTaskDiv(tarefas_terminadas,task);
     } else {
-      
-      createIncompleteTaskDiv(tarefas_pendentes,task)
+      createIncompleteTaskDiv(tarefas_pendentes,task);
     }
   });
 };
 
 task_button.addEventListener('click',async (e) => {
     e.preventDefault();
-    let task_value = task_input.value;
+    let task_value = validations.removeSpacesFromtext(task_input.value);
     if(task_value === "") {
      return  errorMsg('O campo tarefa não pode ser vazio');
     };
