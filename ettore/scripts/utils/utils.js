@@ -61,7 +61,7 @@ export function createCompleteTaskDiv(input, task) {
       confirmButtonColor: "green",
       cancelButtonColor: "red",
       confirmButtonText: "Sair",
-      cancelButtonText: "Cancelar",
+      cancelButtonText: "Cancelars",
     }).then((result) => {
       if (result.isConfirmed) {
         deleteTask(task.id);
