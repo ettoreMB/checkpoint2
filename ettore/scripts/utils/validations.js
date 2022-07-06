@@ -30,8 +30,7 @@ export const validations = {
         button.removeAttribute("disabled")
       
       } else {
-        input.classList.add('inputError')
-        input.nextElementSibling = this._ERROR_MSG
+        this.displayError(input,this._ERROR_MSG);
         button.setAttribute("disabled", true)
         button.style.backgroundColor = this._BLOCKED_COLOR;
       }
@@ -40,30 +39,45 @@ export const validations = {
   },
   handleEmptyInput(input) {
     input.addEventListener('keyup', () => {
-      if (input.value) {
-        input.classList.remove('inputError');
-        input.nextElementSibling.innerText = ""
+      if(input.value) {
+        this.removeSpacesFromtext(input.value)
+        this.clearErrors(input)
         return true
       } else {
-        input.classList.add('inputError')
-        input.nextElementSibling.innerText = this._ERROR_MSG
+        this.displayError(input,this._ERROR_MSG);
         return false
       }
     })
   },
   checkPassword(password, repeatPassword) {
+    const error_msg = "A senhas devem ser iguais";
     if (password.value !== repeatPassword.value) {
-      password.classList.add('inputError')
-      repeatPassword.classList.add('inputError')
-      password.nextElementSibling.innerText = "A senhas devem ser iguais"
-      repeatPassword.nextElementSibling.innerText = "A senhas devem ser iguais"
-      return false
+      this.displayError(password);
+      this.displayError(repeatPassword);
+      this.displayError(password,error_msg);
+      this.displayError(repeatPassword, error_msg);
+      return false;
     } else {
-      password.classList.remove('inputError')
-      repeatPassword.classList.remove('inputError')
-      password.nextElementSibling.innerText = ""
-      repeatPassword.nextElementSibling.innerText = ""
+      this.clearErrors(password)
+      this.clearErrors(repeatPassword)
     }
+  },
+  displayError(input, error){
+    const div = input.nextElementSibling;
+    input.classList.add('inputError')
+    div.classList.add('error')
+    div.innerHTML = error
+  },
+  clearErrors(input) {
+    input.classList.remove('inputError')
+    const errorDiv = input.parentNode.querySelector(".error")
+    errorDiv.innerText = ""
+  },
+  isEmail(input) {
+    const mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+    if(!input.value.match(mailFormat)) {  return this.displayError(input, 'Dever Um email Valido') }
+
+    return  true
   },
 }
 

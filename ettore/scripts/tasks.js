@@ -1,54 +1,53 @@
+import {  createTask, getTasks, getUserInfo, logout } from './utils/api.js';
+import { removeSkeletons, renderSkeletons } from './utils/loader.js';
+import { createCompleteTaskDiv,createIncompleteTaskDiv, errorMsg } from './utils/utils.js';
+
 const header = document.querySelector('#user-name')
 const task_button =  document.querySelector('#task-button');
 const task_input = document.querySelector('#nova-tarefa');
 const tarefas_pendentes = document.querySelector('.tarefas-pendentes');
 const tarefas_terminadas = document.querySelector('.tarefas-terminadas');
-const logout_button = document.querySelector('#closeApp')
+const logout_button = document.querySelector('#closeApp');
 
-import {  createTask, getTasks, getUserInfo, logout } from './utils/api.js'
-import { createCompleteTaskDiv,createIncompleteTaskDiv, errorMsg } from './utils/utils.js'
+
 
 onload = async () => {
   const token =  sessionStorage.getItem('token')
     if(!token) {
-      location.href = 'index.html'
+      location.href = 'index.html';
     } else {
+      renderSkeletons(5,'.tarefas-pendentes');
       const user = await getUserInfo();
-      header.innerText = user.firstName
-      loadTasks();
-    }
-}
+      header.innerText = user.firstName;
+      setTimeout(await loadTasks(), 200);
+      removeSkeletons('.tarefas-pendentes');
+    };
+};
 
 async function loadTasks() {
   const tasks = await getTasks();
   tasks.map(task => {
-    
     if(task.completed === true) {
-      createCompleteTaskDiv(tarefas_pendentes,task)
-      
+      createCompleteTaskDiv(tarefas_terminadas,task)
     } else {
-      createIncompleteTaskDiv(tarefas_terminadas,task)
+      
+      createIncompleteTaskDiv(tarefas_pendentes,task)
     }
-  })
-  
-} 
+  });
+};
 
 task_button.addEventListener('click',async (e) => {
-    
-    e.preventDefault()
-
-    let task_value = task_input.value
-
+    e.preventDefault();
+    let task_value = task_input.value;
     if(task_value === "") {
-     return  errorMsg('O campo tarefa não pode ser vazio')
-    }
+     return  errorMsg('O campo tarefa não pode ser vazio');
+    };
+    const new_task = await createTask(task_value);
+    await createIncompleteTaskDiv(tarefas_pendentes,new_task);
+});
 
-    const new_task = await createTask(task_value)
-
-    createTaskDiv(new_task)
-     
-})
 
 logout_button.addEventListener('click', ()=> {
-  logout()
-})
+  logout();
+});
+
