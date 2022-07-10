@@ -1,32 +1,35 @@
-import { createUser } from './utils/api.js'
-import { validations } from './utils/validations.js'
-
+import { createUser } from './utils/api.js';
+import { validations } from './utils/validations.js';
 
 let passwordInput = document.querySelector('#password_input');
 let passwordRepeatInput = document.querySelector('#repeat_password_input');
-let emailInput = document.querySelector('#email_input')
+let emailInput = document.querySelector('#email_input');
 
-const loginButton = document.querySelector('#signingButton')
+const loginButton = document.querySelector('#signupButton');
+loginButton.setAttribute('disabled', true);
+loginButton.style.backgroundColor = validations._BLOCKED_COLOR;
 
-let inputs = [...document.querySelectorAll('input')]
+let inputs = [...document.querySelectorAll('input')];
 //Outras formas de retornar array de inputs
 //let inputs = document.querySelectorAll('input')
 //const inputArray = Array.apply(inputs)
 //let inputs = Array.prototype.slice.call(inputs)
 
-window.addEventListener('keydown', () => {
-  validations.checkAllInputs(inputs, loginButton)
+window.addEventListener('keyup', () => {
+    validations.checkAllInputs(inputs, loginButton);
 });
 
-inputs.forEach(input => (
-  validations.handleEmptyInput(input)
-));
-
-loginButton.addEventListener('click', (e) => {
-  e.preventDefault();
-  validations.isEmail(emailInput);
-  validations.checkIfHasEmptyInput(inputs, loginButton);
-  validations.checkPassword(passwordInput, passwordRepeatInput);
-  // await createUser(nameValue, lastNameValue, emailValue, passwordValue );
+inputs.forEach(input => {
+    validations.handleEmptyInput(input);
+    validations.checkInputLoguin(input.value);
 });
 
+loginButton.addEventListener('click', e => {
+    e.preventDefault();
+    validations.checkIfHasEmptyInput(inputs, loginButton);
+    validations.checkPassword(passwordInput, passwordRepeatInput);
+    
+    const createResponse = await createUser(firtsName, lastName, email, password);
+
+    await createUser(nameValue, lastNameValue, emailValue, passwordValue ); 
+});
