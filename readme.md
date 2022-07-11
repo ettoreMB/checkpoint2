@@ -1,14 +1,14 @@
-# VALIDAR CAMPOS DE LOGIN
+## Grupo 2
 
-# VALIDAR CAMPOS DE CRIAÇÃO DE USUÁRIO
+## Ettore Barbosa
 
-# FAZER LOGIN
+## Dougals Rios
 
-# COLOCOCAR INFORMAÇÕES DE INFORMÇÃO DO USUÁRIO NO HEADER
+## Nivaldo Santos
 
-# LISTAR TAREFAS
+## José Paulo Luiz Junior
 
-# CRIAR NOVA TAREFA
+## Guilherme Santos
 
-# DELETAR TAREFAS
+
 
