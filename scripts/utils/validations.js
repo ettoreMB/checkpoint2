@@ -86,9 +86,4 @@ export const validations = {
         this.verifiedLogin = true;
         return true;
     },
-    checkInputLoguin(input) {
-        input.addEventListener('keyup', () =>
-            validations.isEmail(input)
-        );
-    },
 };

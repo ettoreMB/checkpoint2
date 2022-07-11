@@ -16,11 +16,8 @@ inputs.forEach(input => {
     validations.handleEmptyInput(input);
 });
 
-emailInput.addEventListener('keyup', ()=> {
-    validations.isEmail(emailInput)
-});
 
-signinButton.addEventListener('click', async( e )=> {
+signinButton.addEventListener('click', async e => {
     let passwordInput = document.querySelector('#password_input');
     
     e.preventDefault();
