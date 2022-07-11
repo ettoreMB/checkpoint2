@@ -7,19 +7,22 @@ const signinButton = document.querySelector('#signupButton');
 signinButton.setAttribute('disabled', true);
 signinButton.style.backgroundColor = validations._BLOCKED_COLOR;
 let inputs = [...document.querySelectorAll('input')];
-
+let emailInput = document.querySelector('#email_input');
 window.addEventListener('keyup', () => {
     validations.checkAllInputs(inputs, signinButton);
 });
 
 inputs.forEach(input => {
     validations.handleEmptyInput(input);
-    validations.checkInputLoguin(input.value);
 });
 
-signinButton.addEventListener('click', async e => {
+emailInput.addEventListener('keyup', ()=> {
+    validations.isEmail(emailInput)
+});
+
+signinButton.addEventListener('click', async( e )=> {
     let passwordInput = document.querySelector('#password_input');
-    let emailInput = document.querySelector('#email_input');
+    
     e.preventDefault();
     inputs.forEach(input => validations.removeSpacesFromtext(input.value));
     validations.checkIfHasEmptyInput(inputs, signinButton);

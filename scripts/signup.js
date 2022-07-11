@@ -1,61 +1,42 @@
-import { createUser } from './utils/api.js';
-import { validations } from './utils/validations.js';
+import { login } from './utils/api.js';
 import { mostrarSpinner, ocultarSpinner } from './utils/loader.js';
+import { errorMsg } from './utils/utils.js';
+import { validations } from './utils/validations.js';
 
-let passwordInput = document.querySelector('#password_input');
-let passwordRepeatInput = document.querySelector('#repeat_password_input');
-let emailInput = document.querySelector('#email_input');
-let name = document.getElementById('name-input');
-let lastName = document.getElementById('surname-input');
-
-passwordRepeatInput.addEventListener('keyup', function (e) {
-    e.preventDefault();
-    validations.checkPassword(passwordInput, passwordRepeatInput);
-});
-
-const loginButton = document.querySelector('#signupButton');
-loginButton.setAttribute('disabled', true);
-loginButton.style.backgroundColor = validations._BLOCKED_COLOR;
-
+const signinButton = document.querySelector('#signupButton');
+signinButton.setAttribute('disabled', true);
+signinButton.style.backgroundColor = validations._BLOCKED_COLOR;
 let inputs = [...document.querySelectorAll('input')];
-//Outras formas de retornar array de inputs
-//let inputs = document.querySelectorAll('input')
-//const inputArray = Array.apply(inputs)
-//let inputs = Array.prototype.slice.call(inputs)
-
+let emailInput = document.querySelector('#email_input');
 window.addEventListener('keyup', () => {
-    validations.checkAllInputs(inputs, loginButton);
+    validations.checkAllInputs(inputs, signinButton);
 });
 
 inputs.forEach(input => {
     validations.handleEmptyInput(input);
-    validations.checkInputLoguin(input.value);
 });
 
-loginButton.addEventListener('click', async e => {
+emailInput.addEventListener('keyup', ()=> {
+    validations.isEmail(emailInput)
+});
+
+signinButton.addEventListener('click', async( e )=> {
+    let passwordInput = document.querySelector('#password_input');
+    
     e.preventDefault();
-    validations.checkIfHasEmptyInput(inputs, loginButton);
-    validations.checkPassword(passwordInput, passwordRepeatInput);
+    inputs.forEach(input => validations.removeSpacesFromtext(input.value));
+    validations.checkIfHasEmptyInput(inputs, signinButton);
+    const loginResponse = await login(emailInput.value, passwordInput.value);
 
-    await createUser(
-        name.value,
-        lastName.value,
-        emailInput.value,
-        passwordInput.value
-    );
-
-    //não está funcionando ainda, queria já salvar o token quando ele criasse a conta e já mandar ele para as tarefas para ele nao precisar logar novamente.
-    //ai teria de fazer uma função de verificar se tem o token na loguin para já passar direto se tiver.
     mostrarSpinner();
-    if (createUser.status === 200 || createUser.status === 201) {
-        const jwtToken = await createUser.json();
-        console.log(jwtToken);
+    if (loginResponse.status === 200 || loginResponse.status === 201) {
+        const jwtToken = await loginResponse.json();
         sessionStorage.setItem('token', jwtToken.jwt);
         location.href = 'tarefas.html';
     }
 
-    if (createUser.status === 400) {
+    if (loginResponse.status === 400) {
         ocultarSpinner();
-        errorMsg('Error 400 server');
+        errorMsg('Email ou Senha Invalidos');
     }
 });
