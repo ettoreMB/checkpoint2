@@ -1,6 +1,7 @@
-import { createUser } from './utils/api.js';
+import { createUser, login } from './utils/api.js';
 import { validations } from './utils/validations.js';
 import { mostrarSpinner, ocultarSpinner } from './utils/loader.js';
+import { errorMsg } from './utils/utils.js';
 
 let passwordInput = document.querySelector('#password_input');
 let passwordRepeatInput = document.querySelector('#repeat_password_input');
@@ -29,33 +30,33 @@ window.addEventListener('keyup', () => {
 
 inputs.forEach(input => {
     validations.handleEmptyInput(input);
-    validations.checkInputLoguin(input.value);
 });
 
-loginButton.addEventListener('click', async e => {
+emailInput.addEventListener('keyup', ()=> {
+    validations.isEmail(emailInput)
+})
+
+loginButton.addEventListener('click',  async (e) => {
     e.preventDefault();
     validations.checkIfHasEmptyInput(inputs, loginButton);
     validations.checkPassword(passwordInput, passwordRepeatInput);
-
-    await createUser(
+    mostrarSpinner();
+    const createUserApi = await createUser(
         name.value,
         lastName.value,
         emailInput.value,
         passwordInput.value
     );
 
-    //não está funcionando ainda, queria já salvar o token quando ele criasse a conta e já mandar ele para as tarefas para ele nao precisar logar novamente.
-    //ai teria de fazer uma função de verificar se tem o token na loguin para já passar direto se tiver.
-    mostrarSpinner();
-    if (createUser.status === 200 || createUser.status === 201) {
-        const jwtToken = await createUser.json();
-        console.log(jwtToken);
-        sessionStorage.setItem('token', jwtToken.jwt);
-        location.href = 'tarefas.html';
+    const response = await createUserApi.json()
+    console.log(response)
+
+    if (createUserApi.status === 200 || createUserApi.status === 201) {
+       location.href='index.html'
     }
 
-    if (createUser.status === 400) {
+    if (createUserApi.status === 400) {
         ocultarSpinner();
-        errorMsg('Error 400 server');
+        errorMsg(response);
     }
 });

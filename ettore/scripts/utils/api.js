@@ -51,15 +51,16 @@ export async function login(email, password) {
     }
 }
 
-export async function createUser(firtsName, lastName, email, password) {
+export async function createUser(firstName, lastName, email, password) {
     const newUser = {
-        firtsName: firtsName,
+        firstName: firstName,
         lastName: lastName,
         email: email,
         password: password,
     };
     try {
-        await api.post(`/users`, newUser);
+       let create =  await api.post('/users', newUser);
+        return create;
     } catch (error) {
         return error;
     }
@@ -123,6 +124,22 @@ export async function deleteTask(id) {
 }
 
 export function logout() {
-    sessionStorage.removeItem('token');
-    location.href = 'index.html';
+    Swal.fire({
+        text: 'Realmente deseja sair ?',
+        iconColor: 'white',
+        icon: 'question',
+        background: `linear-gradient(90deg,#7898FF, #8E64C5)`,
+        color: 'white',
+        showCancelButton: true,
+        confirmButtonColor: '#28a745',
+        cancelButtonColor: '#dc3545',
+        confirmButtonText: 'Sair',
+        cancelButtonText: 'Cancelar',
+    }).then(result => {
+        if (result.isConfirmed) {
+            sessionStorage.removeItem('token');
+            location.href = 'index.html';
+        }
+    });
+    
 }

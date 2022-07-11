@@ -86,10 +86,9 @@ export const validations = {
         this.verifiedLogin = true;
         return true;
     },
-    checkInputLoguin() {
-        let emailInput = document.querySelector('#email_input');
-        emailInput.addEventListener('keyup', () =>
-            validations.isEmail(emailInput)
+    checkInputLoguin(input) {
+        input.addEventListener('keyup', () =>
+            validations.isEmail(input)
         );
     },
 };
