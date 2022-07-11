@@ -49,20 +49,5 @@ task_button.addEventListener('click', async e => {
 });
 
 logout_button.addEventListener('click', function () {
-    Swal.fire({
-        text: 'Realmente deseja sair ?',
-        iconColor: 'white',
-        icon: 'question',
-        background: 'linear-gradient(90deg,#7898FF, #8E64C5)',
-        color: 'white',
-        showCancelButton: true,
-        confirmButtonColor: 'green',
-        cancelButtonColor: 'red',
-        confirmButtonText: 'Sair',
-        cancelButtonText: 'Cancelar',
-    }).then(result => {
-        if (result.isConfirmed) {
-            logout();
-        }
-    });
+    logout()
 });
