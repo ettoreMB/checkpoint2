@@ -23,9 +23,8 @@ signinButton.addEventListener('click', async e => {
     e.preventDefault();
     inputs.forEach(input => validations.removeSpacesFromtext(input.value));
     validations.checkIfHasEmptyInput(inputs, signinButton);
-    const loginResponse = await login(emailInput.value, passwordInput.value);
-
     mostrarSpinner();
+    const loginResponse = await login(emailInput.value, passwordInput.value);
     if (loginResponse.status === 200 || loginResponse.status === 201) {
         const jwtToken = await loginResponse.json();
         sessionStorage.setItem('token', jwtToken.jwt);
