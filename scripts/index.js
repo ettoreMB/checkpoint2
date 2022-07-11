@@ -6,8 +6,11 @@ import { validations } from './utils/validations.js';
 const signinButton = document.querySelector('#signupButton');
 signinButton.setAttribute('disabled', true);
 signinButton.style.backgroundColor = validations._BLOCKED_COLOR;
+
 let inputs = [...document.querySelectorAll('input')];
+
 let emailInput = document.querySelector('#email_input');
+
 window.addEventListener('keyup', () => {
     validations.checkAllInputs(inputs, signinButton);
 });

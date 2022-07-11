@@ -1,4 +1,4 @@
-let verifiedLogin = false;
+
 export const validations = {
     _DEFAULT_STYLE_BG: '#7898FF',
     _BLOCKED_COLOR: '#979292A1',
