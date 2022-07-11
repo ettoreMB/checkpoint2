@@ -115,11 +115,9 @@ export async function updateTask(task) {
 
 export async function deleteTask(id) {
     const task_id = String(id);
-    try {
-        await api.delete('/tasks', task_id);
-    } catch (error) {
-        return error;
-    }
+    
+       await api.delete('/tasks', task_id);
+ 
 }
 
 export function logout() {

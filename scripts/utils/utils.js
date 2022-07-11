@@ -51,21 +51,21 @@ export function createCompleteTaskDiv(input, task) {
     input_id.value = task.id;
     name_p.innerText = task.description;
 
-    delete_icon.addEventListener('click', function () {
+    delete_icon.addEventListener('click', async () =>{
         Swal.fire({
             title: 'Excluir tarefa?',
             iconColor: 'white',
             icon: 'warning',
-            background: '#8E64C5',
+            background: 'linear-gradient(90deg,#7898FF, #8E64C5)',
             color: 'white',
             showCancelButton: true,
             confirmButtonColor: 'green',
             cancelButtonColor: 'red',
-            confirmButtonText: 'Sair',
+            confirmButtonText: 'Sim',
             cancelButtonText: 'Cancelar',
-        }).then(result => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
-                deleteTask(task.id);
+               await deleteTask(task.id);
                 location.reload();
             }
         });
@@ -105,8 +105,7 @@ export async function createIncompleteTaskDiv(input, task) {
         await updateTask(task);
         location.reload();
     });
-    console.log(task);
-
+   
     timestamp_p.innerText = `Criada em : ${transformDate(task.createdAt)}`;
     input.appendChild(task_li);
 }

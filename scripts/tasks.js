@@ -53,7 +53,7 @@ logout_button.addEventListener('click', function () {
         text: 'Realmente deseja sair ?',
         iconColor: 'white',
         icon: 'question',
-        background: '#8E64C5',
+        background: 'linear-gradient(90deg,#7898FF, #8E64C5)',
         color: 'white',
         showCancelButton: true,
         confirmButtonColor: 'green',
