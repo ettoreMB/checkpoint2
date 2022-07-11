@@ -8,21 +8,22 @@ let passwordRepeatInput = document.querySelector('#repeat_password_input');
 let emailInput = document.querySelector('#email_input');
 let name = document.getElementById('name-input');
 let lastName = document.getElementById('surname-input');
-
-passwordRepeatInput.addEventListener('keyup', function (e) {
-    e.preventDefault();
-    validations.checkPassword(passwordInput, passwordRepeatInput);
-});
-
 const loginButton = document.querySelector('#signupButton');
 loginButton.setAttribute('disabled', true);
 loginButton.style.backgroundColor = validations._BLOCKED_COLOR;
+
 
 let inputs = [...document.querySelectorAll('input')];
 //Outras formas de retornar array de inputs
 //let inputs = document.querySelectorAll('input')
 //const inputArray = Array.apply(inputs)
 //let inputs = Array.prototype.slice.call(inputs)
+
+passwordRepeatInput.addEventListener('keyup', function (e) {
+    e.preventDefault();
+    validations.checkPassword(passwordInput, passwordRepeatInput);
+});
+
 
 window.addEventListener('keyup', () => {
     validations.checkAllInputs(inputs, loginButton);

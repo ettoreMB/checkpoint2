@@ -52,8 +52,6 @@ export const validations = {
     checkPassword(password, repeatPassword) {
         const error_msg = 'A senhas devem ser iguais';
         if (password.value !== repeatPassword.value) {
-            this.displayError(password);
-            this.displayError(repeatPassword);
             this.displayError(password, error_msg);
             this.displayError(repeatPassword, error_msg);
             return false;
