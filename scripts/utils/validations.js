@@ -53,7 +53,7 @@ export const validations = {
         const error_msg = 'A senhas devem ser iguais';
         if (password.value !== repeatPassword.value) {
             this.displayError(password, error_msg);
-            this.displayError(repeatPassword, error_msg);
+            // this.displayError(repeatPassword, error_msg);
             return false;
         } else {
             this.clearErrors(password);

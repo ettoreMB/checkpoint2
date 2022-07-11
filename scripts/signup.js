@@ -19,11 +19,15 @@ let inputs = [...document.querySelectorAll('input')];
 //const inputArray = Array.apply(inputs)
 //let inputs = Array.prototype.slice.call(inputs)
 
-passwordRepeatInput.addEventListener('keyup', function (e) {
+passwordInput.addEventListener('keyup', function (e) {
     e.preventDefault();
     validations.checkPassword(passwordInput, passwordRepeatInput);
 });
 
+passwordRepeatInput.addEventListener('keyup', function (e) {
+    e.preventDefault();
+    validations.checkPassword(passwordInput, passwordRepeatInput);
+});
 
 window.addEventListener('keyup', () => {
     validations.checkAllInputs(inputs, loginButton);
