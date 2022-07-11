@@ -8,8 +8,8 @@
 
         <!-- ---------------- estilos compartilhados entre login e signup ---------------- -->
         <link rel="stylesheet" href="styles/acesso.css" />
-        <link rel="stylesheet" href="styles/common.css" />
-        <link rel="stylesheet" href="styles/messages.css" />
+        <link rel="stylesheet" href="./styles/messages.css">
+        <link rel="stylesheet" href="./styles/loader.css">
         <!-- ---------------------- lógica aplicada no registro -------------------- -->
     </head>
 
@@ -26,12 +26,12 @@
                 <label for="nomeInput">
                     Nome:
                     <input id="name-input" type="text" />
-                    <small class="validateField"></small>
+                    <small class="error"></small>
                 </label>
                 <label for="sobrenomeInput">
                     Sobrenome:
                     <input id="surname-input" type="text" />
-                    <small class="validateField"></small>
+                    <small class="error"></small>
                 </label>
                 <label for="emailInput">
                     Email:
@@ -46,7 +46,7 @@
                 <label for="repeat_password_input">
                     Repetir senha:
                     <input id="repeat_password_input" type="password" />
-                    <small class="validateField"></small>
+                    <small class="error"></small>
                 </label>
 
                 <button id="signupButton" disabled>Criar conta</button>
@@ -58,5 +58,4 @@
     </body>
 
     <script src="./scripts/signup.js" type="module"></script>
-    <script src="./scripts/utils/validation.js"></script>
 </html>
