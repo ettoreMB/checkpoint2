@@ -1,15 +1,31 @@
-import { login } from './utils/api.js';
+import { createUser, login } from './utils/api.js';
+import { validations } from './utils/validations.js';
 import { mostrarSpinner, ocultarSpinner } from './utils/loader.js';
 import { errorMsg } from './utils/utils.js';
-import { validations } from './utils/validations.js';
 
-const signinButton = document.querySelector('#signupButton');
-signinButton.setAttribute('disabled', true);
-signinButton.style.backgroundColor = validations._BLOCKED_COLOR;
-let inputs = [...document.querySelectorAll('input')];
+let passwordInput = document.querySelector('#password_input');
+let passwordRepeatInput = document.querySelector('#repeat_password_input');
 let emailInput = document.querySelector('#email_input');
+let name = document.getElementById('name-input');
+let lastName = document.getElementById('surname-input');
+
+passwordRepeatInput.addEventListener('keyup', function (e) {
+    e.preventDefault();
+    validations.checkPassword(passwordInput, passwordRepeatInput);
+});
+
+const loginButton = document.querySelector('#signupButton');
+loginButton.setAttribute('disabled', true);
+loginButton.style.backgroundColor = validations._BLOCKED_COLOR;
+
+let inputs = [...document.querySelectorAll('input')];
+//Outras formas de retornar array de inputs
+//let inputs = document.querySelectorAll('input')
+//const inputArray = Array.apply(inputs)
+//let inputs = Array.prototype.slice.call(inputs)
+
 window.addEventListener('keyup', () => {
-    validations.checkAllInputs(inputs, signinButton);
+    validations.checkAllInputs(inputs, loginButton);
 });
 
 inputs.forEach(input => {
@@ -18,25 +34,29 @@ inputs.forEach(input => {
 
 emailInput.addEventListener('keyup', ()=> {
     validations.isEmail(emailInput)
-});
+})
 
-signinButton.addEventListener('click', async( e )=> {
-    let passwordInput = document.querySelector('#password_input');
-    
+loginButton.addEventListener('click',  async (e) => {
     e.preventDefault();
-    inputs.forEach(input => validations.removeSpacesFromtext(input.value));
-    validations.checkIfHasEmptyInput(inputs, signinButton);
-    const loginResponse = await login(emailInput.value, passwordInput.value);
-
+    validations.checkIfHasEmptyInput(inputs, loginButton);
+    validations.checkPassword(passwordInput, passwordRepeatInput);
     mostrarSpinner();
-    if (loginResponse.status === 200 || loginResponse.status === 201) {
-        const jwtToken = await loginResponse.json();
-        sessionStorage.setItem('token', jwtToken.jwt);
-        location.href = 'tarefas.html';
+    const createUserApi = await createUser(
+        name.value,
+        lastName.value,
+        emailInput.value,
+        passwordInput.value
+    );
+
+    const response = await createUserApi.json()
+    console.log(response)
+
+    if (createUserApi.status === 200 || createUserApi.status === 201) {
+       location.href='index.html'
     }
 
-    if (loginResponse.status === 400) {
+    if (createUserApi.status === 400) {
         ocultarSpinner();
-        errorMsg('Email ou Senha Invalidos');
+        errorMsg(response);
     }
 });
