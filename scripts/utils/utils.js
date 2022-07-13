@@ -7,11 +7,15 @@ const _DATE_OPTIONS = {
 };
 
 function transformDate(date) {
-    const transformedDate = new Intl.DateTimeFormat(
+    /* const transformedDate = new Intl.DateTimeFormat(
         'pt-BR',
         _DATE_OPTIONS
     ).format(new Date(date));
-    return transformedDate;
+    return transformedDate; */
+
+    const datejs = dayjs(date).format('DD/MM/YYYY').toString();
+    console.log(date);
+    return datejs;
 }
 
 export function createCompleteTaskDiv(input, task) {
@@ -51,7 +55,7 @@ export function createCompleteTaskDiv(input, task) {
     input_id.value = task.id;
     name_p.innerText = task.description;
 
-    delete_icon.addEventListener('click', async () =>{
+    delete_icon.addEventListener('click', async () => {
         Swal.fire({
             title: 'Excluir tarefa?',
             iconColor: 'white',
@@ -63,9 +67,9 @@ export function createCompleteTaskDiv(input, task) {
             cancelButtonColor: 'red',
             confirmButtonText: 'Sim',
             cancelButtonText: 'Cancelar',
-        }).then(async (result) => {
+        }).then(async result => {
             if (result.isConfirmed) {
-               await deleteTask(task.id);
+                await deleteTask(task.id);
                 location.reload();
             }
         });
@@ -105,7 +109,7 @@ export async function createIncompleteTaskDiv(input, task) {
         await updateTask(task);
         location.reload();
     });
-   
+
     timestamp_p.innerText = `Criada em : ${transformDate(task.createdAt)}`;
     input.appendChild(task_li);
 }

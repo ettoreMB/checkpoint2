@@ -48,3 +48,25 @@ export function removeSkeletons(conteiner) {
     const skeletons = document.querySelectorAll(`.skeleton-conteiner`);
     skeletons.forEach(skeleton => conteinerTarefas.removeChild(skeleton));
 }
+
+export function darkMode() {
+    anime
+        .timeline({
+            endDelay: 1000,
+            easing: 'easeInOutQuad',
+            direction: 'alternate',
+            loop: false,
+        })
+        .add({ targets: '.color-hex', background: '#000' }, 0);
+}
+
+export function whiteMode() {
+    anime
+        .timeline({
+            endDelay: 1000,
+            easing: 'easeInOutQuad',
+            direction: 'alternate',
+            loop: false,
+        })
+        .add({ targets: '.color-hex', background: '#fff' }, 0);
+}

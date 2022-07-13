@@ -1,5 +1,10 @@
 import { createTask, getTasks, getUserInfo, logout } from './utils/api.js';
-import { removeSkeletons, renderSkeletons } from './utils/loader.js';
+import {
+    removeSkeletons,
+    renderSkeletons,
+    darkMode,
+    whiteMode,
+} from './utils/loader.js';
 import {
     createCompleteTaskDiv,
     createIncompleteTaskDiv,
@@ -13,6 +18,8 @@ const task_input = document.querySelector('#nova-tarefa');
 const tarefas_pendentes = document.querySelector('.tarefas-pendentes');
 const tarefas_terminadas = document.querySelector('.tarefas-terminadas');
 const logout_button = document.querySelector('#closeApp');
+
+let condition = false;
 
 onload = async () => {
     const token = sessionStorage.getItem('token');
@@ -49,5 +56,18 @@ task_button.addEventListener('click', async e => {
 });
 
 logout_button.addEventListener('click', function () {
-    logout()
+    logout();
+});
+
+let modifield = document.getElementById('darkMode');
+modifield.addEventListener('click', function () {
+    if (condition === false) {
+        darkMode();
+        condition = true;
+        document.getElementById('label').innerText = 'WhiteMode';
+    } else {
+        whiteMode();
+        condition = false;
+        document.getElementById('label').innerText = 'DarkMode';
+    }
 });

@@ -23,15 +23,27 @@
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   
+  <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+  <script>dayjs().format()</script>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
+  <script src='./scripts/libraries/anime.min.js'></script>
 
   <title>To-Do App</title>
 </head>
 
-<body>
+<body class="color-hex">
   <header>
     <nav>
       <a href="#">Tarefas</a>
     </nav>
+
+    <div class="form-check form-switch align-self-center" id="darkMode">
+      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+    </div>
+    <div id="label" class='align-self-center text-white ms-1'> DarkMode</div>
 
     <div class="user-info">
       <p id="user-name">Nome usuário</p>
@@ -56,7 +68,6 @@
   <ul class="tarefas-terminadas">
 
   </ul>
-  <script src="./scripts/tasks.js" type="module"></script>
+  <script src="./scripts/tasks.js" type="module"></>
 </body>
-
 </html>
